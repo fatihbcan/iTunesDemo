@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <com.example.hepsiburada.widgets.CustomSearchBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:header_image="@drawable/search_icon"
+        app:hint="Search name"/>
+
+    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        android:id="@+id/buttonGroup_lordOfTheRings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="2dp"
+        android:background="@color/white"
+        app:borderColor="@color/black"
+        app:borderWidth="1dp"
+        app:divider="@color/gray"
+        app:dividerPadding="10dp"
+        app:dividerWidth="1dp"
+        app:position="0"
+        app:radius="30dp"
+        app:ripple="true"
+        app:rippleColor="@color/gray"
+        app:selectedBackground="@color/white">
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/muli_light"
+            android:padding="10dp"
+            app:selectedTextColor="@color/black"
+            app:selectedBackground="@color/gray"
+            app:selectedTextStyle="bold"
+            app:text="Movies"
+            app:textColor="@color/black" />
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/muli_light"
+            android:padding="10dp"
+            app:selectedTextColor="@color/black"
+            app:selectedBackground="@color/gray"
+            app:selectedTextStyle="bold"
+            app:text="Musics"
+            app:textColor="@color/black" />
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/muli_light"
+            android:padding="10dp"
+            app:selectedTextColor="@color/black"
+            app:selectedBackground="@color/gray"
+            app:selectedTextStyle="bold"
+            app:text="e-Books"
+            app:textColor="@color/black" />
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/muli_light"
+            android:padding="10dp"
+            app:selectedTextColor="@color/black"
+            app:selectedBackground="@color/gray"
+            app:selectedTextStyle="bold"
+            app:text="Podcasts"
+            app:textColor="@color/black" />
+    </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>
