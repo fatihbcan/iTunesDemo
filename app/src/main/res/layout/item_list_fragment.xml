@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:layout_marginTop="20dp"
     android:background="@color/white"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <com.example.hepsiburada.widgets.CustomSearchBar
+        android:id="@+id/customSearchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:header_image="@drawable/search_icon"
-        app:hint="Search name"/>
+        app:hint="Search name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
-        android:id="@+id/buttonGroup_lordOfTheRings"
+        android:id="@+id/categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:elevation="2dp"
         android:background="@color/white"
+        android:elevation="2dp"
         app:borderColor="@color/black"
         app:borderWidth="1dp"
         app:divider="@color/gray"
         app:dividerPadding="10dp"
         app:dividerWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/customSearchBar"
         app:position="0"
         app:radius="30dp"
         app:ripple="true"
@@ -41,8 +47,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/muli_light"
             android:padding="10dp"
-            app:selectedTextColor="@color/black"
             app:selectedBackground="@color/gray"
+            app:selectedTextColor="@color/black"
             app:selectedTextStyle="bold"
             app:text="Movies"
             app:textColor="@color/black" />
@@ -53,8 +59,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/muli_light"
             android:padding="10dp"
-            app:selectedTextColor="@color/black"
             app:selectedBackground="@color/gray"
+            app:selectedTextColor="@color/black"
             app:selectedTextStyle="bold"
             app:text="Musics"
             app:textColor="@color/black" />
@@ -65,8 +71,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/muli_light"
             android:padding="10dp"
-            app:selectedTextColor="@color/black"
             app:selectedBackground="@color/gray"
+            app:selectedTextColor="@color/black"
             app:selectedTextStyle="bold"
             app:text="e-Books"
             app:textColor="@color/black" />
@@ -77,16 +83,52 @@
             android:layout_weight="1"
             android:fontFamily="@font/muli_light"
             android:padding="10dp"
-            app:selectedTextColor="@color/black"
             app:selectedBackground="@color/gray"
+            app:selectedTextColor="@color/black"
             app:selectedTextStyle="bold"
             app:text="Podcasts"
             app:textColor="@color/black" />
     </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"/>
-</LinearLayout>
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categories">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/orange"
+        android:indeterminateTintMode="src_atop"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,12 +10,16 @@
         android:label="item_list_fragment"
         tools:layout="@layout/item_list_fragment" >
         <action
-            android:id="@+id/action_itemListFragment_to_itemDetailsFragment"
+            android:id="@+id/goToDetailPage"
             app:destination="@id/itemDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailsFragment"
         android:name="com.example.hepsiburada.view.ItemDetailsFragment"
         android:label="item_details_fragment"
-        tools:layout="@layout/item_details_fragment" />
+        tools:layout="@layout/item_details_fragment" >
+        <action
+            android:id="@+id/goBackToListPage"
+            app:destination="@id/itemListFragment" />
+    </fragment>
 </navigation>
