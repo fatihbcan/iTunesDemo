@@ -5,9 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.hepsiburada.databinding.RecyclerViewItemBinding
 import com.example.hepsiburada.network.response.Result
 import com.example.hepsiburada.network.response.ResultList
@@ -42,8 +46,9 @@ class ItemListAdapter(private var listItems: ResultList,
         : ViewHolder(recyclerViewItemBinding.root){
 
         fun bind(item: Result){
-            Log.d("Fatih", "binded item : " + item.trackName)
+            recyclerViewItemBinding.item = item
             recyclerViewItemBinding.itemClickListener = itemClickListener
         }
     }
+
 }

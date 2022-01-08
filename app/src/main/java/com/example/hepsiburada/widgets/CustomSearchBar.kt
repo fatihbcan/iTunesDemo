@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.text.Editable
 import android.util.AttributeSet
+import android.util.Log
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.hepsiburada.R
@@ -32,5 +35,13 @@ class CustomSearchBar: ConstraintLayout {
        val typedArray : TypedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomSearchBar,0 ,0)
         setHint(typedArray.getString(R.styleable.CustomSearchBar_hint))
         setHeaderImage(typedArray.getResourceId(R.styleable.CustomSearchBar_header_image,0))
+    }
+
+    fun setOnEditorActionListener(setOnEditorActionListener: TextView.OnEditorActionListener){
+        this.search_bar_edit_text.setOnEditorActionListener(setOnEditorActionListener)
+    }
+
+    fun getSearchedText(): String{
+        return this.search_bar_edit_text.text.toString()
     }
 }
