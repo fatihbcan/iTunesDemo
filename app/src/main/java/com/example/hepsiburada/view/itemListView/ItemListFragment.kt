@@ -8,19 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hepsiburada.viewModels.ItemListViewModel
 import com.example.hepsiburada.R
 import com.example.hepsiburada.network.Status
 import com.example.hepsiburada.network.request.iTunesSearchApiBuilder
 import com.example.hepsiburada.network.request.iTunesSearchApiHelper
+import com.example.hepsiburada.network.response.Result
 import com.example.hepsiburada.network.response.ResultList
 import com.example.hepsiburada.viewModels.ViewModelFactory
 import kotlinx.android.synthetic.main.item_list_fragment.*
 import retrofit2.HttpException
 
-class ItemListFragment : Fragment() {
+class ItemListFragment : Fragment(), ItemClickListener {
 
     companion object {
         fun newInstance() = ItemListFragment()
@@ -33,13 +36,14 @@ class ItemListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.item_list_fragment, container, false)
+        val view = inflater.inflate(R.layout.item_list_fragment, container, false)
+        setupUI(view)
+        return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
-        setupUI()
         setupObservers()
 
     }
@@ -69,7 +73,9 @@ class ItemListFragment : Fragment() {
         })
     }
 
-    private fun setupUI() {
+    private fun setupUI(view: View) {
+        Log.d("Fatih","setupui worked")
+        val recyclerView = view.findViewById<View>(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ItemListAdapter(ResultList(ArrayList()))
         recyclerView.addItemDecoration(
@@ -86,6 +92,12 @@ class ItemListFragment : Fragment() {
             addListItems(items)
             notifyDataSetChanged()
         }
+    }
+
+    // navigates to event list fragment for clicked city
+    override fun onRecyclerViewItemClick(clickedItemDetails : Result) {
+        val action = ItemListFragmentDirections.actionİtemListFragmentToİtemDetailsFragment()
+        findNavController().navigate(action)
     }
 
 }
