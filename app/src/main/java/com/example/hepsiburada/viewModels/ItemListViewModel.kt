@@ -26,6 +26,16 @@ class ItemListViewModel (private val apiRepository: ApiRepository): ViewModel() 
         return searchedTextAndCategory
     }
 
+    fun getCategoryName() : String {
+        return when(searchedTextAndCategory.second){
+            0 -> iTunesSearchKeys.MOVIES
+            1 -> iTunesSearchKeys.MUSIC
+            2 -> iTunesSearchKeys.BOOKS
+            3 -> iTunesSearchKeys.PODCAST
+            else -> iTunesSearchKeys.MOVIES
+        }
+    }
+
     fun getBooks() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {

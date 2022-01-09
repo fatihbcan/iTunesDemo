@@ -24,5 +24,8 @@
         <argument
             android:name="selectedItem"
             app:argType="com.example.hepsiburada.network.response.Result" />
+        <argument
+            android:name="itemCategory"
+            app:argType="string" />
     </fragment>
 </navigation>

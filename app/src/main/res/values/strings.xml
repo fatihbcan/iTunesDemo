@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HepsiBurada</string>
+    <string name="genre_time_date_divider"> - </string>
+
 </resources>

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +24,6 @@ import com.example.hepsiburada.network.response.ResultList
 import com.example.hepsiburada.viewModels.ViewModelFactory
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup.OnPositionChangedListener
 import com.example.hepsiburada.widgets.CustomSearchBar
-import kotlinx.android.synthetic.main.item_list_fragment.*
 
 
 class ItemListFragment : Fragment(), ItemClickListener {
@@ -207,7 +205,7 @@ class ItemListFragment : Fragment(), ItemClickListener {
 
     // navigates to event list fragment for clicked city
     override fun onRecyclerViewItemClick(clickedItemDetails : Result) {
-        val action = ItemListFragmentDirections.goToDetailPage(clickedItemDetails)
+        val action = ItemListFragmentDirections.goToDetailPage(clickedItemDetails, viewModel.getCategoryName())
         findNavController().navigate(action)
     }
 
