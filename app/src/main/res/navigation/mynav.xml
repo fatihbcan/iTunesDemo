@@ -21,5 +21,8 @@
         <action
             android:id="@+id/goBackToListPage"
             app:destination="@id/itemListFragment" />
+        <argument
+            android:name="selectedItem"
+            app:argType="com.example.hepsiburada.network.response.Result" />
     </fragment>
 </navigation>

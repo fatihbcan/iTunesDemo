@@ -207,7 +207,7 @@ class ItemListFragment : Fragment(), ItemClickListener {
 
     // navigates to event list fragment for clicked city
     override fun onRecyclerViewItemClick(clickedItemDetails : Result) {
-        val action = ItemListFragmentDirections.goToDetailPage()
+        val action = ItemListFragmentDirections.goToDetailPage(clickedItemDetails)
         findNavController().navigate(action)
     }
 
