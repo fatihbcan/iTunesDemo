@@ -17,8 +17,7 @@ import com.example.hepsiburada.network.response.Result
 import com.example.hepsiburada.network.response.ResultList
 
 
-class ItemListAdapter(private var listItems: ResultList,
-                      private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder>() {
+class ItemListAdapter(private var listItems: ResultList) : RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ItemListViewHolder(
@@ -27,7 +26,7 @@ class ItemListAdapter(private var listItems: ResultList,
                     R.layout.recycler_view_item,
                     parent,
                     false
-            ), itemClickListener
+            )
     )
 
     override fun onBindViewHolder(holder: ItemListViewHolder, position: Int) {
@@ -41,13 +40,11 @@ class ItemListAdapter(private var listItems: ResultList,
     }
 
     class ItemListViewHolder(
-            private val recyclerViewItemBinding: RecyclerViewItemBinding,
-            private val itemClickListener: ItemClickListener)
+            private val recyclerViewItemBinding: RecyclerViewItemBinding)
         : ViewHolder(recyclerViewItemBinding.root){
 
         fun bind(item: Result){
-            recyclerViewItemBinding.item = item
-            recyclerViewItemBinding.itemClickListener = itemClickListener
+           // recyclerViewItemBinding.item = item
         }
     }
 

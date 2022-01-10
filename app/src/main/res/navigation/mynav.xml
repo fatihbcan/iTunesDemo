@@ -8,7 +8,7 @@
         android:id="@+id/itemListFragment"
         android:name="com.example.hepsiburada.view.itemListView.ItemListFragment"
         android:label="item_list_fragment"
-        tools:layout="@layout/item_list_fragment" >
+        tools:layout="@layout/fragment_item_list" >
         <action
             android:id="@+id/goToDetailPage"
             app:destination="@id/itemDetailsFragment" />

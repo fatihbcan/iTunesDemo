@@ -1,33 +1,32 @@
 package com.example.hepsiburada.viewModels
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.hepsiburada.network.Resource
 import com.example.hepsiburada.network.request.iTunesSearchKeys
 import com.example.hepsiburada.network.request.iTunesSearchApiHelper
 import com.example.hepsiburada.repository.ApiRepository
+import com.example.hepsiburada.repository.iTunesSearchRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ItemListViewModel (private val apiRepository: ApiRepository): ViewModel() {
+class ItemListViewModel @ViewModelInject constructor(private val repository: iTunesSearchRepository): ViewModel() {
 
-    private var searchedTextAndCategory : Pair<String, Int> = Pair("",0)
+    private val currentQuery = MutableLiveData(DEFAULT_QUERY)
 
-    fun setSearchedTextAndCategory(searchedText : String, category: Int){
-        searchedTextAndCategory = Pair(searchedText, category)
+    val listItems = currentQuery.switchMap { queryPair ->
+        repository.getSearchResults(queryPair.first,getCategoryName(queryPair.second)).cachedIn(viewModelScope)
     }
 
-    fun updateCategory(category: Int){
-        searchedTextAndCategory = Pair(searchedTextAndCategory.first, category)
+    fun searchPhotos(query: String, category: Int) {
+        currentQuery.value = Pair(query, category)
     }
 
-    fun getSearchedTextAndCategory() : Pair<String, Int> {
-        return searchedTextAndCategory
-    }
 
-    fun getCategoryName() : String {
-        return when(searchedTextAndCategory.second){
+    private fun getCategoryName(value : Int) : String {
+        return when(value){
             0 -> iTunesSearchKeys.MOVIES
             1 -> iTunesSearchKeys.MUSIC
             2 -> iTunesSearchKeys.BOOKS
@@ -36,39 +35,7 @@ class ItemListViewModel (private val apiRepository: ApiRepository): ViewModel() 
         }
     }
 
-    fun getBooks() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = apiRepository.getItemList(searchedTextAndCategory.first,20, iTunesSearchKeys.BOOKS)))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
-
-    fun getMovies() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = apiRepository.getItemList(searchedTextAndCategory.first,20, iTunesSearchKeys.MOVIES)))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
-
-    fun getPodcasts() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = apiRepository.getItemList(searchedTextAndCategory.first,20, iTunesSearchKeys.PODCAST)))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
-
-    fun getMusics() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = apiRepository.getItemList(searchedTextAndCategory.first,20, iTunesSearchKeys.MUSIC)))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
+    companion object {
+        private val DEFAULT_QUERY = Pair("cats",0)
     }
 }

@@ -12,7 +12,9 @@ import com.example.hepsiburada.viewModels.ItemDetailsViewModel
 import com.example.hepsiburada.R
 import com.example.hepsiburada.databinding.ItemDetailsFragmentBinding
 import com.example.hepsiburada.network.request.iTunesSearchKeys
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ItemDetailsFragment : Fragment() {
 
     private val args: ItemDetailsFragmentArgs by navArgs()

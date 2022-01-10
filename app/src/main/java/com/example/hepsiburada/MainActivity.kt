@@ -9,24 +9,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         backGroundColor()
-        setupNavigation()
-    }
-
-
-    private fun setupNavigation() {
-        val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.fragment_container) as NavHostFragment? ?: return
-
-        val navController: NavController = host.navController
-        val myNav: NavigationView = findViewById(R.id.navigationView)
-        myNav.setupWithNavController(navController)
     }
 
     fun backGroundColor() {

@@ -7,10 +7,14 @@ import retrofit2.http.Query
 
 interface iTunesSearchApiService {
 
+    companion object {
+        const val BASE_URL = "https://itunes.apple.com/"
+    }
+
     @GET("search")
     suspend fun getSearchItems(
         @Query("term") searchedString: String,
         @Query("limit") limit: Int,
         @Query("entity") entity: String
-    ): Response<ResultList>
+    ): iTunesApiResponse
 }

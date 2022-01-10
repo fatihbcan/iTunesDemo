@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/amber200_to_orange400_gradient"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".view.itemListView.ItemListFragment">
 
     <com.example.hepsiburada.widgets.CustomSearchBar
         android:id="@+id/customSearchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:header_image="@drawable/search_icon"
-        app:hint="Search name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:hint="Search name" />
 
     <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
         android:id="@+id/categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:background="@color/white"
+        android:layout_below="@+id/customSearchBar"
         android:elevation="2dp"
         app:borderColor="@color/black"
         app:borderWidth="1dp"
         app:divider="@color/gray"
         app:dividerPadding="10dp"
         app:dividerWidth="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/customSearchBar"
         app:position="0"
         app:radius="30dp"
         app:ripple="true"
@@ -96,24 +92,21 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
-        android:paddingBottom="160dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categories"/>
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/categories"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/recycler_view_item" />
 
 
     <ProgressBar
         android:id="@+id/loading_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:indeterminateTint="@color/orange_900"
         android:indeterminateTintMode="src_atop"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
