@@ -14,8 +14,8 @@ class iTunesSearchRepository @Inject constructor(private val iTunesSearchApiServ
     fun getSearchResults(query: String, category: String) =
         Pager(
             config = PagingConfig(
-                pageSize = 20,
-                maxSize = 100,
+                pageSize = 1,
+                maxSize = 3,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { DataPagingSource(iTunesSearchApiService, query, category) }

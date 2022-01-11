@@ -12,7 +12,7 @@ import com.example.hepsiburada.R
 import com.example.hepsiburada.data.ItemListData
 import com.example.hepsiburada.databinding.RecyclerViewItemBinding
 
-class ItemListPagingAdapter :
+class ItemListPagingAdapter(private val listener: OnItemClickListener) :
     PagingDataAdapter<ItemListData, ItemListPagingAdapter.ItemListPagingViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListPagingViewHolder {
@@ -31,13 +31,30 @@ class ItemListPagingAdapter :
         }
     }
 
-    class ItemListPagingViewHolder (private val binding: RecyclerViewItemBinding) :
+    inner class ItemListPagingViewHolder (private val binding: RecyclerViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        listener.onItemClick(item)
+                    }
+                }
+            }
+        }
 
         fun bind(item: ItemListData) {
             Log.d("Fatih","item name :"+item.trackName)
             binding.item = item
         }
+    }
+
+
+    interface OnItemClickListener {
+        fun onItemClick(item: ItemListData)
     }
 
     companion object {

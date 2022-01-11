@@ -18,9 +18,10 @@ class DataPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ItemListData> {
         val position = params.key ?: STARTING_PAGE_INDEX
+        val offset = (position - 1) * 20
 
         return try {
-            val response = itunesSearchApiService.getSearchItems(query, 40, category)
+            val response = itunesSearchApiService.getSearchItems(query, offset,20, category)
             val resultList = response.results
 
             LoadResult.Page(

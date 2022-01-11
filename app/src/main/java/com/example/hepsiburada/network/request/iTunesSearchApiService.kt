@@ -14,6 +14,7 @@ interface iTunesSearchApiService {
     @GET("search")
     suspend fun getSearchItems(
         @Query("term") searchedString: String,
+        @Query("offset") offSet : Int,
         @Query("limit") limit: Int,
         @Query("entity") entity: String
     ): iTunesApiResponse

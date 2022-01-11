@@ -67,11 +67,14 @@
                         android:id="@+id/release_date_title"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
-                        android:text="24$"
                         android:gravity="center"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/muli_semibold"
+                        app:price="@{item.price}"
+                        app:trackPrice="@{item.trackPrice}"
+                        app:currencyCode="@{item.currency}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,10 +82,12 @@
                         android:id="@+id/release_date_text"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
-                        android:text="12 haziran 1999"
                         android:gravity="center"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/muli_semibold"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
+                        app:setDate="@{item.releaseDate}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/release_date_title" />
 

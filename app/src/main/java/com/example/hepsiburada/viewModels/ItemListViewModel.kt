@@ -2,6 +2,8 @@ package com.example.hepsiburada.viewModels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.hepsiburada.network.Resource
@@ -24,6 +26,7 @@ class ItemListViewModel @ViewModelInject constructor(private val repository: iTu
         currentQuery.value = Pair(query, category)
     }
 
+    fun getCurrentQuery() : String = getCategoryName(currentQuery.value!!.second)
 
     private fun getCategoryName(value : Int) : String {
         return when(value){
@@ -36,6 +39,6 @@ class ItemListViewModel @ViewModelInject constructor(private val repository: iTu
     }
 
     companion object {
-        private val DEFAULT_QUERY = Pair("cats",0)
+        private val DEFAULT_QUERY = Pair("",0)
     }
 }

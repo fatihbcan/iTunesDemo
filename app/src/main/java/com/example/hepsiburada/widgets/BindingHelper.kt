@@ -13,6 +13,8 @@ import com.example.hepsiburada.network.request.iTunesSearchKeys
 import java.lang.Exception
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -32,7 +34,37 @@ fun setCurrencySymbol(view : TextView, currencyTypeString: String){
     view.text = currency.symbol
 }
 
-@BindingAdapter("setDate")
+@SuppressLint("SetTextI18n")
+@BindingAdapter(value = ["price","trackPrice", "currencyCode"])
+fun getPrice(view: TextView,price: Float, trackPrice: Float, currencyCode: String){
+    val currency = Currency.getInstance(currencyCode)
+
+    if(trackPrice.toInt() == 0 && price.toInt() != 0){
+        view.text = "${currency.symbol} $price"
+    } else if (trackPrice.toInt() != 0 && price.toInt() == 0){
+        view.text = "${currency.symbol} $trackPrice"
+    } else {
+        view.text = "Free"
+    }
+}
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter(value = ["price","rentalPrice","trackPrice", "currencyCode"])
+fun getPriceRentandTrack(view: TextView,price: Float, rentalPrice: Float, trackPrice: Float, currencyCode: String) {
+    val currency = Currency.getInstance(currencyCode)
+
+    if(rentalPrice.toInt() == 0 && trackPrice.toInt() != 0 && price.toInt() == 0){
+        view.text ="Buy: ${currency.symbol}$trackPrice"
+    } else if (rentalPrice.toInt() != 0 && trackPrice.toInt() != 0 && price.toInt() == 0){
+        view.text = "Rent: ${currency.symbol}$rentalPrice / Buy: ${currency.symbol}$trackPrice"
+    } else if(rentalPrice.toInt() == 0 && trackPrice.toInt() == 0 && price.toInt() != 0){
+        view.text ="Buy: ${currency.symbol}$price"
+    } else {
+        view.text = "Free"
+    }
+}
+
+    @BindingAdapter("setDate")
 fun setDate(view: TextView, unformattedDate: String){
     view.text = getDate(unformattedDate)
 }
@@ -54,6 +86,18 @@ fun bindGenreTimeReleaseDate(view: TextView, genre : String, time: Int, releaseD
         view.text = "$genre \u2022 $trackTime \u2022 $releaseDate"
     }
 }
+
+@BindingAdapter(value = ["longDescription","description"])
+fun getDescription(view: TextView, longDescription: String, description: String){
+    if(longDescription.isNullOrEmpty()){
+        Log.d("Fatih","desc settet as text")
+        Log.d("Fatih","desc : "+description)
+        view.text = description
+    } else {
+        view.text = longDescription
+    }
+}
+
 
 @SuppressLint("SimpleDateFormat")
 fun getDate(unformattedDate: String) : String {

@@ -1,5 +1,7 @@
 package com.example.hepsiburada.view.itemListView
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,13 +17,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hepsiburada.viewModels.ItemListViewModel
 import com.example.hepsiburada.R
+import com.example.hepsiburada.data.ItemListData
 import com.example.hepsiburada.databinding.ItemListFragmentBinding
 import com.example.hepsiburada.network.response.Result
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.item_list_fragment.*
 
 @AndroidEntryPoint
-class ItemListFragment : Fragment(R.layout.item_list_fragment) {
+class ItemListFragment : Fragment(R.layout.item_list_fragment) , ItemListPagingAdapter.OnItemClickListener{
 
     private var _binding : ItemListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -33,7 +37,7 @@ class ItemListFragment : Fragment(R.layout.item_list_fragment) {
 
         _binding = ItemListFragmentBinding.bind(view)
 
-        val adapter = ItemListPagingAdapter()
+        val adapter = ItemListPagingAdapter(this)
 
         binding.customSearchBar.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -47,6 +51,7 @@ class ItemListFragment : Fragment(R.layout.item_list_fragment) {
 
         binding.categories.setOnPositionChangedListener { position ->
             viewModel.searchPhotos(binding.customSearchBar.getSearchedText(), position)
+            binding.recyclerView.scrollToPosition(0)
         }
 
         binding.apply {
@@ -64,6 +69,11 @@ class ItemListFragment : Fragment(R.layout.item_list_fragment) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(item: ItemListData) {
+        val action = ItemListFragmentDirections.goToDetailPage(item, viewModel.getCurrentQuery())
+        findNavController().navigate(action)
     }
 
 }

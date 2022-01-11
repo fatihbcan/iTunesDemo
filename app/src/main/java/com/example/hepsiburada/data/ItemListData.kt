@@ -15,21 +15,21 @@ data class ItemListData(
     @SerializedName("releaseDate") val releaseDate: String,
     @SerializedName("country") val country: String,
     @SerializedName("currency") val currency: String,
-    @SerializedName("trackPrice") val trackPrice: Float,
+    @SerializedName("trackPrice") val trackPrice: Float?,
     @SerializedName("genres") val genreList: ArrayList<String>?,
 
     //Movie and Music
     @SerializedName("trackTimeMillis") val trackTimeMillis: Int,
 
     //Movie
-    @SerializedName("longDescription") val longDescription: String,
-    @SerializedName("trackRentalPrice") val rentalPrice: Float,
+    @SerializedName("longDescription") val longDescription: String?,
+    @SerializedName("trackRentalPrice") val rentalPrice: Float?,
 
     //Music
     @SerializedName("previewUrl") val previewUrl: String,
     @SerializedName("trackViewUrl") val trackViewUrl: String,
 
     //eBook
-    @SerializedName("formattedPrice") val formattedPrice: String,
-    @SerializedName("description") val description: String
+    @SerializedName("price") val price: Float?,
+    @SerializedName("description") val description: String?
 ) : Parcelable

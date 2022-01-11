@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="item"
-            type="com.example.hepsiburada.network.response.Result" />
+            type="com.example.hepsiburada.data.ItemListData" />
 
 
         <variable
             name="category"
             type="java.lang.String" />
+        
+        <variable
+            name="clickListener"
+            type="com.example.hepsiburada.view.itemDetailsView.ItemDetailsClickListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.eventDetailFragment.EventDetailFragment">
@@ -68,65 +72,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_layout">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/genreTimeDateLayer"
+            <TextView
+                android:id="@+id/genreTimeDate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:genre="@{item.genreName}"
+                app:time="@{item.trackTimeMillis}"
+                app:releaseDate="@{item.releaseDate}"
+                app:category="@{category}"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/genreName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:text="@{item.genreName + @string/genre_time_date_divider}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/trackTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    app:layout_constraintStart_toEndOf="@+id/genreName"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:trackTime="@{item.trackTimeMillis}" />
-
-                <TextView
-                    android:id="@+id/trackTimeDateDivider"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:text="@string/genre_time_date_divider"
-                    app:layout_constraintStart_toEndOf="@+id/trackTime"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    app:layout_constraintStart_toEndOf="@+id/trackTimeDateDivider"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:setDate="@{item.releaseDate}" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:price="@{item.price}"
+                app:rentalPrice="@{item.rentalPrice}"
+                app:trackPrice="@{item.trackPrice}"
+                app:currencyCode="@{item.currency}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genreTimeDate"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/descriptonLayer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/genreTimeDateLayer">
+                app:layout_constraintTop_toBottomOf="@+id/price">
 
                 <TextView
                     android:id="@+id/descripton"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
+                    android:fontFamily="@font/muli_bold"
+                    android:textSize="14sp"
                     android:text="Description"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -139,95 +133,76 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:scrollbars="vertical"
-                    android:text="@{item.longDescription}"
                     android:textSize="12sp"
+                    app:description='@{item.description ?? ""}'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/descripton" />
+                    app:layout_constraintTop_toBottomOf="@+id/descripton"
+                    app:longDescription='@{item.longDescription ?? ""}' />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/currencyLayer"
+                android:id="@+id/previewSongLayer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptonLayer">
+                app:layout_constraintTop_toBottomOf="@+id/price">
 
                 <TextView
-                    android:id="@+id/rentalText"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/previewSong"
+                    android:layout_width="match_parent"
                     android:layout_height="25dp"
-                    android:text="Rent : "
+                    android:fontFamily="@font/muli_bold"
+                    android:textSize="14sp"
+                    android:text="Listen Sample"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/rentalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:text="@{Float.toString(item.rentalPrice)}"
-                    app:layout_constraintStart_toEndOf="@+id/rentalText"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/rentalPriceSymbol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    app:currencySymbol="@{item.currency}"
-                    app:layout_constraintStart_toEndOf="@+id/rentalPrice"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/divider"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:text=" / "
-                    app:layout_constraintStart_toEndOf="@+id/rentalPriceSymbol"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/buyText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:text="Buy : "
-                    app:layout_constraintStart_toEndOf="@+id/divider"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/buyPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:text="@{Float.toString(item.trackPrice)}"
-                    app:layout_constraintStart_toEndOf="@+id/buyText"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/buyPriceSymbol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    app:currencySymbol="@{item.currency}"
-                    app:layout_constraintStart_toEndOf="@+id/buyPrice"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:id="@+id/listenButton"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/round_shape"
+                    android:textSize="12sp"
+                    android:text="Play"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/previewSong" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/muli_bold"
+                android:gravity="center"
+                android:onClick="@{() -> clickListener.onNavigateITunesButtonClick(item.trackViewUrl)}"
+                android:text="Navigate to iTunes Page"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:genre="@{item.genreName}"
-                app:time="@{item.trackTimeMillis}"
-                app:releaseDate="@{item.releaseDate}"
-                app:category="@{category}"
-                app:layout_constraintTop_toBottomOf="@id/currencyLayer"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

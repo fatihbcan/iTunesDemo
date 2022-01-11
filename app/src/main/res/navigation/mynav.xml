@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemDetailsFragment"
-        android:name="com.example.hepsiburada.view.ItemDetailsFragment"
+        android:name="com.example.hepsiburada.view.itemDetailsView.ItemDetailsFragment"
         android:label="item_details_fragment"
         tools:layout="@layout/item_details_fragment" >
         <action
@@ -23,7 +23,7 @@
             app:destination="@id/itemListFragment" />
         <argument
             android:name="selectedItem"
-            app:argType="com.example.hepsiburada.network.response.Result" />
+            app:argType="com.example.hepsiburada.data.ItemListData" />
         <argument
             android:name="itemCategory"
             app:argType="string" />
