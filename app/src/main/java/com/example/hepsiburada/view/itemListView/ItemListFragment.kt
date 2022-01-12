@@ -1,27 +1,17 @@
 package com.example.hepsiburada.view.itemListView
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hepsiburada.viewModels.ItemListViewModel
 import com.example.hepsiburada.R
 import com.example.hepsiburada.data.ItemListData
 import com.example.hepsiburada.databinding.ItemListFragmentBinding
-import com.example.hepsiburada.network.response.Result
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.item_list_fragment.*
 
 @AndroidEntryPoint
 class ItemListFragment : Fragment(R.layout.item_list_fragment) , ItemListPagingAdapter.OnItemClickListener{
@@ -39,21 +29,30 @@ class ItemListFragment : Fragment(R.layout.item_list_fragment) , ItemListPagingA
 
         val adapter = ItemListPagingAdapter(this)
 
-        binding.customSearchBar.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.searchPhotos(binding.customSearchBar.getSearchedText(),binding.categories.position)
-                binding.recyclerView.scrollToPosition(0)
-                true
-            } else {
-                false
+        binding.customSearchBar.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-        }
+
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                if(text?.trim()?.length!! >= 2){ // trim used to get rid of spaces on start and end
+                    viewModel.searchItems(text.trim().toString(),binding.categories.position) // changes live query data to perform api call
+                    binding.recyclerView.scrollToPosition(0) // scrolls to top when new api call performed
+                } else {
+                    viewModel.searchItems("",binding.categories.position)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
 
         binding.categories.setOnPositionChangedListener { position ->
-            viewModel.searchPhotos(binding.customSearchBar.getSearchedText(), position)
+            viewModel.searchItems(binding.customSearchBar.getSearchedText(), position)
             binding.recyclerView.scrollToPosition(0)
         }
 
+        //sets recycleView
         binding.apply {
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
@@ -61,6 +60,8 @@ class ItemListFragment : Fragment(R.layout.item_list_fragment) , ItemListPagingA
                 footer = ItemListLoadStateAdapter { adapter.retry() }
             )
         }
+
+        //observes paging data and submit it to paging adapter
         viewModel.listItems.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }

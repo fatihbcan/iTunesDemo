@@ -8,6 +8,7 @@ import com.example.hepsiburada.network.request.iTunesSearchApiService
 import java.io.IOException
 
 private const val STARTING_PAGE_INDEX = 1
+private const val LIMIT = 20
 
 
 class DataPagingSource(
@@ -17,12 +18,12 @@ class DataPagingSource(
 ) : PagingSource<Int, ItemListData>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ItemListData> {
-        val position = params.key ?: STARTING_PAGE_INDEX
-        val offset = (position - 1) * 20
+        val position = params.key ?: STARTING_PAGE_INDEX // page position default 1
+        val offset = (position - 1) * LIMIT // to skip some data to prevent calling same ones for every page
 
         return try {
-            val response = itunesSearchApiService.getSearchItems(query, offset,20, category)
-            val resultList = response.results
+            val response = itunesSearchApiService.getSearchItems(query, offset, LIMIT, category) // api call
+            val resultList = response.results // get api call results
 
             LoadResult.Page(
                 data = resultList,

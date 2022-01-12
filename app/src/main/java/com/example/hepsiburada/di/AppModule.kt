@@ -1,6 +1,5 @@
 package com.example.hepsiburada.di
 
-import com.example.hepsiburada.network.request.iTunesSearchApiBuilder
 import com.example.hepsiburada.network.request.iTunesSearchApiService
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module

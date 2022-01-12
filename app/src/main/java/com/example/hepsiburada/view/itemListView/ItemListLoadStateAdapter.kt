@@ -31,10 +31,11 @@ class ItemListLoadStateAdapter(private val retry: () -> Unit) : LoadStateAdapter
 
         init {
             binding.buttonRetry.setOnClickListener {
-                retry.invoke()
+                retry.invoke() //unit function to append a functionality later
             }
         }
 
+        // according to loading state shows spinner or button with text
         fun bind(loadState: LoadState) {
             binding.apply {
                 loadingSpinner.isVisible = loadState is LoadState.Loading

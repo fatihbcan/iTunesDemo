@@ -8,43 +8,48 @@
     android:orientation="vertical"
     tools:context=".view.itemListView.ItemListFragment">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:fontFamily="@font/muli_bold"
+        android:text="iTunes Demo"
+        android:layout_height="40dp"/>
+
     <com.example.hepsiburada.widgets.CustomSearchBar
         android:id="@+id/customSearchBar"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
         app:header_image="@drawable/search_icon"
-        app:hint="Search name" />
+        app:hint="Search" />
 
     <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
         android:id="@+id/categories"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="10dp"
         android:background="@color/white"
         android:layout_below="@+id/customSearchBar"
-        android:elevation="2dp"
         app:borderColor="@color/black"
         app:borderWidth="1dp"
         app:divider="@color/gray"
         app:dividerPadding="10dp"
         app:dividerWidth="1dp"
         app:position="0"
-        app:radius="30dp"
-        app:ripple="true"
-        app:rippleColor="@color/gray"
-        app:selectedBackground="@color/white">
+        app:radius="30dp">
 
         <com.addisonelliott.segmentedbutton.SegmentedButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fontFamily="@font/muli_light"
             android:padding="10dp"
             app:selectedBackground="@color/gray"
-            app:selectedTextColor="@color/black"
-            app:selectedTextStyle="bold"
             app:text="Movies"
             app:textColor="@color/black" />
 
@@ -52,11 +57,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fontFamily="@font/muli_light"
             android:padding="10dp"
             app:selectedBackground="@color/gray"
-            app:selectedTextColor="@color/black"
-            app:selectedTextStyle="bold"
             app:text="Musics"
             app:textColor="@color/black" />
 
@@ -64,11 +66,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fontFamily="@font/muli_light"
             android:padding="10dp"
             app:selectedBackground="@color/gray"
-            app:selectedTextColor="@color/black"
-            app:selectedTextStyle="bold"
             app:text="e-Books"
             app:textColor="@color/black" />
 
@@ -76,11 +75,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fontFamily="@font/muli_light"
             android:padding="10dp"
             app:selectedBackground="@color/gray"
-            app:selectedTextColor="@color/black"
-            app:selectedTextStyle="bold"
             app:text="Podcasts"
             app:textColor="@color/black" />
     </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>

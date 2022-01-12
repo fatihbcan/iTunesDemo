@@ -3,12 +3,14 @@ package com.example.hepsiburada.widgets
 import android.content.Context
 import android.content.res.TypedArray
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.adapters.TextViewBindingAdapter
 import com.example.hepsiburada.R
 import kotlinx.android.synthetic.main.search_bar_item.view.*
 
@@ -37,8 +39,8 @@ class CustomSearchBar: ConstraintLayout {
         setHeaderImage(typedArray.getResourceId(R.styleable.CustomSearchBar_header_image,0))
     }
 
-    fun setOnEditorActionListener(setOnEditorActionListener: TextView.OnEditorActionListener){
-        this.search_bar_edit_text.setOnEditorActionListener(setOnEditorActionListener)
+    fun addTextChangedListener(textWatcher: TextWatcher){
+        this.search_bar_edit_text.addTextChangedListener(textWatcher)
     }
 
     fun getSearchedText(): String{

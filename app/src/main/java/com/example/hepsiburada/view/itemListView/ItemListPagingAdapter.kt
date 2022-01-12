@@ -16,9 +16,8 @@ class ItemListPagingAdapter(private val listener: OnItemClickListener) :
     PagingDataAdapter<ItemListData, ItemListPagingAdapter.ItemListPagingViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListPagingViewHolder {
-        val binding =
-            RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
+        // implements binding
+        val binding = RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ItemListPagingViewHolder(binding)
     }
@@ -35,6 +34,7 @@ class ItemListPagingAdapter(private val listener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
+            // implements onClickListener
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
@@ -47,7 +47,6 @@ class ItemListPagingAdapter(private val listener: OnItemClickListener) :
         }
 
         fun bind(item: ItemListData) {
-            Log.d("Fatih","item name :"+item.trackName)
             binding.item = item
         }
     }

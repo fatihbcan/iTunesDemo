@@ -4,37 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:viewBindingIgnore="true"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="50dp"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/edit_text_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:fontFamily="@font/muli_bold"
-        android:text="Search"
-        android:textColor="@color/gray"
-        android:textSize="20sp"
-        android:layout_marginStart="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginBottom="4dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/gray"
-        android:bottomLeftRadius="16dp"
-        android:bottomRightRadius="16dp"
-        android:topLeftRadius="16dp"
-        android:topRightRadius="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/custom_search_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/header_image"
@@ -49,13 +32,6 @@
 
         <EditText
             android:id="@+id/search_bar_edit_text"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            android:fontFamily="@font/muli_semibold"
-            android:lines="1"
-            android:inputType="text"
-            android:imeOptions="actionSearch"
             android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginStart="6dp"
@@ -63,6 +39,13 @@
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="11dp"
             android:background="@null"
+            android:fontFamily="@font/muli_semibold"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/footer_image"
             app:layout_constraintStart_toEndOf="@id/header_image"

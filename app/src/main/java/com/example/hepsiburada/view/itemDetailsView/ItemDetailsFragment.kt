@@ -39,21 +39,34 @@ class ItemDetailsFragment : Fragment(), ItemDetailsClickListener {
             false
         )
 
+        // if category is books, iTunesSearch Api won't return "primaryGenre" key so instead we set it from "genreList"
         if (args.itemCategory == iTunesSearchKeys.BOOKS) {
             if (!args.selectedItem.genreList.isNullOrEmpty()) {
                 args.selectedItem.genreName = args.selectedItem.genreList!![0]
             }
         }
+
+        // to show song sample we prepare media player if category is music
         if (args.itemCategory == iTunesSearchKeys.MUSIC) {
             prepareMediaPlayer(args.selectedItem.previewUrl)
         }
 
+        // these three is for databinding, gives parameters for data variables
         viewWithBinding.item = args.selectedItem
         viewWithBinding.category = args.itemCategory
         viewWithBinding.clickListener = this
-        viewWithBinding.descriptonLayer.visibility = if (args.itemCategory == iTunesSearchKeys.MUSIC || args.itemCategory == iTunesSearchKeys.PODCAST) View.GONE else View.VISIBLE
+
+        // these scenarios handled with view binding.
+        viewWithBinding.descriptonLayer.visibility = if (args.itemCategory != iTunesSearchKeys.MOVIES && args.itemCategory != iTunesSearchKeys.BOOKS) View.GONE else View.VISIBLE
         viewWithBinding.previewSongLayer.visibility = if (args.itemCategory == iTunesSearchKeys.MUSIC) View.VISIBLE else View.GONE
-        viewWithBinding.details.movementMethod = ScrollingMovementMethod()
+        /*
+        *  only books and movies has descriptions so if category is not one of them description layer view is gone
+        *  also only musics has previewSong feature so it's only visible on music category
+        * */
+
+        viewWithBinding.details.movementMethod = ScrollingMovementMethod() // scroll added for long description scenarios
+
+        // handles play button for song sample
         viewWithBinding.listenButton.setOnClickListener {
             if (currentAudioPosition == 0 && !mediaPlayer.isPlaying) {
                 mediaPlayer.prepareAsync()
@@ -74,6 +87,7 @@ class ItemDetailsFragment : Fragment(), ItemDetailsClickListener {
         return viewWithBinding.root
     }
 
+    // navigates to iTunes page of item
     override fun onNavigateITunesButtonClick(url: String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(browserIntent)

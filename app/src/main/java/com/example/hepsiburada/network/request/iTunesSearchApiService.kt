@@ -1,7 +1,5 @@
 package com.example.hepsiburada.network.request
 
-import com.example.hepsiburada.network.response.ResultList
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,9 +11,9 @@ interface iTunesSearchApiService {
 
     @GET("search")
     suspend fun getSearchItems(
-        @Query("term") searchedString: String,
-        @Query("offset") offSet : Int,
-        @Query("limit") limit: Int,
-        @Query("entity") entity: String
+        @Query("term") searchedString: String, //searched text
+        @Query("offset") offSet : Int, // to skip some data for paging
+        @Query("limit") limit: Int, // response item limit
+        @Query("entity") entity: String // category
     ): iTunesApiResponse
 }

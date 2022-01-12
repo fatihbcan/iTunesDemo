@@ -11,11 +11,12 @@ import javax.inject.Singleton
 @Singleton
 class iTunesSearchRepository @Inject constructor(private val iTunesSearchApiService: iTunesSearchApiService) {
 
+    // parse pagings source to live data
     fun getSearchResults(query: String, category: String) =
         Pager(
             config = PagingConfig(
-                pageSize = 1,
-                maxSize = 3,
+                pageSize = 20,
+                maxSize = 60,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { DataPagingSource(iTunesSearchApiService, query, category) }
