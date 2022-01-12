@@ -9,6 +9,8 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -38,6 +40,8 @@ class ItemDetailsFragment : Fragment(), ItemDetailsClickListener {
             container,
             false
         )
+
+        backGroundColor()
 
         // if category is books, iTunesSearch Api won't return "primaryGenre" key so instead we set it from "genreList"
         if (args.itemCategory == iTunesSearchKeys.BOOKS) {
@@ -112,5 +116,13 @@ class ItemDetailsFragment : Fragment(), ItemDetailsClickListener {
             mediaPlayer.isLooping = true
         }
 
+    }
+
+    //handles all fragment color including status bar and navigation bar
+    private fun backGroundColor() {
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        activity?.window?.navigationBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        activity?.window?.setBackgroundDrawableResource(R.drawable.details_fragment_background)
     }
 }

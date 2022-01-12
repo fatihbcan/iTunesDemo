@@ -5,6 +5,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hepsiburada.viewModels.ItemListViewModel
@@ -24,7 +26,7 @@ class ItemListFragment : Fragment(R.layout.item_list_fragment) , ItemListPagingA
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        backGroundColor()
         _binding = ItemListFragmentBinding.bind(view)
 
         val adapter = ItemListPagingAdapter(this)
@@ -77,4 +79,11 @@ class ItemListFragment : Fragment(R.layout.item_list_fragment) , ItemListPagingA
         findNavController().navigate(action)
     }
 
+    //handles all fragment color including status bar and navigation bar
+    private fun backGroundColor() {
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        activity?.window?.navigationBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        activity?.window?.setBackgroundDrawableResource(R.drawable.amber200_to_orange400_gradient)
+    }
 }
